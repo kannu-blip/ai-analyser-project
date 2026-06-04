@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Resume Analyzer - Timeline Cards</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        margin:0;
+        font-family:'Orbitron', sans-serif;
+        background: linear-gradient(135deg,#1f1c2c,#928dab);
+        color:#fff;
+        display:flex;
+        justify-content:center;
+        padding:40px;
+    }
+    .timeline-container {
+        position: relative;
+        max-width: 800px;
+        width: 100%;
+        padding-left: 40px;
+    }
+    .timeline-container::after {
+        content: '';
+        position: absolute;
+        left: 30px;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: #00ff9f77;
+        border-radius: 2px;
+    }
+    .timeline-card {
+        position: relative;
+        background: #2c2c3c;
+        border-radius: 15px;
+        padding: 20px 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 0 15px #00ff9f66;
+        transition: transform 0.3s;
+    }
+    .timeline-card:hover {
+        transform: translateX(10px);
+        box-shadow: 0 0 25px #00ff9faa;
+    }
+    .timeline-card::before {
+        content: '';
+        position: absolute;
+        left: -46px;
+        top: 20px;
+        width: 20px;
+        height: 20px;
+        background: #00ff9f;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #00ff9faa;
+    }
+    h2, h4 { margin-top:0; }
+    .matched { color:#00ff9f; font-weight:700; }
+    .missing { color:#ff3864; font-weight:700; }
+    ul { margin:0; padding-left:20px; }
+    a.btn {
+        display:block; 
+        text-align:center; 
+        padding:10px; 
+        border-radius:10px; 
+        background:#00ff9f; 
+        color:#000; 
+        font-weight:700; 
+        text-decoration:none;
+        margin-top:15px;
+    }
+    a.btn:hover { background:#00cc7a; }
+</style>
+</head>
+<body>
+<div class="timeline-container">
+
+    <div class="timeline-card">
+        <h2>🚀 Resume Match Score: {{ score }}%</h2>
+    </div>
+
+    <div class="timeline-card">
+        <h4>✅ Matched Skills</h4>
+        {% if matched %}
+            <p class="matched">{{ matched | join(', ') }}</p>
+        {% else %}
+            <p class="matched">No matched skills</p>
+        {% endif %}
+    </div>
+
+    <div class="timeline-card">
+        <h4>⚠ Missing Skills</h4>
+        {% if missing %}
+            <p class="missing">{{ missing | join(', ') }}</p>
+        {% else %}
+            <p class="missing">No missing skills</p>
+        {% endif %}
+    </div>
+
+    {% if suggestions %}
+    <div class="timeline-card">
+        <h4>🎯 Suggestions</h4>
+        <ul>
+        {% for s in suggestions %}
+            <li>{{ s }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <div class="timeline-card">
+        <a href="/" class="btn">Analyze Another Resume</a>
+    </div>
+
+</div>
+</body>
+</html>
